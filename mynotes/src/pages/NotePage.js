@@ -7,6 +7,7 @@ const NotePage = () => {
   let { id }  = useParams();
   let navigate = useNavigate()
   let [note, setNote] = useState({})
+  
   useEffect(() => {
     let getNote = async () => {
       if (id === 'new') return
