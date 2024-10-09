@@ -5,6 +5,7 @@ let getTitle = (note) => {
     let title = note.body.split('\n')[0]
     if (title.length > 25) {
         title = title.slice(0, 25) + '...'
+
         
     }
     return title
