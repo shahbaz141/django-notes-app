@@ -5,6 +5,7 @@ let getTitle = (note) => {
     let title = note.body.split('\n')[0]
     if (title.length > 25) {
         title = title.slice(0, 25) + '...'
+        
     }
     return title
 }
@@ -24,6 +25,7 @@ const ListItem = ({note}) => {
     return (
     <div className='notes-list-item'>
         <Link to={`/note/${note.id}`}>
+    
             <h3>{getTitle(note)}</h3>
             <p>{getContent(note)}</p>
             <p>{getDate(note)}</p>
