@@ -1,43 +1,47 @@
-@Library("Shared") _
-pipeline{
+@Library("shared") _
+pipeline {
+    agent { label "ferry" } // Removed colon after "label"
     
-    agent { label "vinod"}
-    
-    stages{
-        
-        stage("Hello"){
+    stages {
+        stage("hello"){
             steps{
                 script{
                     hello()
                 }
             }
         }
-        stage("Code"){
-            steps{
-               script{
-                clone("https://github.com/LondheShubham153/django-notes-app.git","main")
-               }
-                
-            }
-        }
-        stage("Build"){
-            steps{
+        stage("code") { // Quoted stage name
+            steps {
                 script{
-                docker_build("notes-app","latest","trainwithshubham")
+                    gitClone("https://github.com/shahbaz141/django-notes-app.git","main")
                 }
             }
         }
-        stage("Push to DockerHub"){
-            steps{
+        stage("build") { // Quoted stage name
+            steps {
                 script{
-                    docker_push("notes-app","latest","trainwithshubham")
+                    build()
                 }
             }
         }
-        stage("Deploy"){
+        stage("push to dockerhub"){
             steps{
-                echo "This is deploying the code"
-                sh "docker compose down && docker compose up -d"
+                script{
+                    loginDockerPush("dockercred")
+                }
+            }
+      }
+        
+        stage("test") { // Quoted stage name
+            steps {
+                echo "Testing will start soon"
+            }
+        }
+        stage("deploy") { // Quoted stage name
+            steps {
+              script{
+                  deploy()
+              }
             }
         }
     }
