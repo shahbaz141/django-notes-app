@@ -40,7 +40,7 @@ pipeline {
         stage("deploy") { // Quoted stage name
             steps {
               script{
-                  cotainerdown()
+                  containerdown()
                   deploy()
               }
             }
